@@ -1,5 +1,6 @@
 package co.com.sofka.cineco.cliente;
 
+import co.com.sofka.cineco.cliente.events.TarjetaAgregadaCliente;
 import co.com.sofka.cineco.compra.events.AsientoAgregado;
 import co.com.sofka.cineco.cliente.events.ClienteCreado;
 import co.com.sofka.cineco.cliente.events.NombreCambiado;
@@ -8,6 +9,9 @@ import co.com.sofka.cineco.cliente.values.*;
 import co.com.sofka.cineco.pelicula.values.PeliculaId;
 import co.com.sofka.cineco.pelicula.values.Sinopsis;
 import co.com.sofka.cineco.sala.values.AsientoId;
+import co.com.sofka.cineco.tarjetacineco.values.Descripcion;
+import co.com.sofka.cineco.tarjetacineco.values.Estado;
+import co.com.sofka.cineco.tarjetacineco.values.TarjetaCinecoId;
 import co.com.sofka.domain.generic.AggregateEvent;
 
 import java.util.Objects;
@@ -19,9 +23,16 @@ public class Cliente extends AggregateEvent<IdentificacionCliente> {
     protected Domicilio domicilio;
     protected FechaCumplenos fechaCumplenos;
 
+    protected TarjetaCinecoId tarjetaCinecoId;
+
     public Cliente(IdentificacionCliente entityId, Nombre nombre,  Email email) {
         super(entityId);
         appendChange(new ClienteCreado(nombre, email)).apply();
+    }
+
+    private Cliente(IdentificacionCliente entityId){
+        super(entityId);
+        subscribe(new ClienteChange(this));
     }
 
     /**
@@ -40,6 +51,11 @@ public class Cliente extends AggregateEvent<IdentificacionCliente> {
 
     public void cambiarNombre(IdentificacionCliente entityId,Nombre nombre){
         appendChange(new NombreCambiado(entityId,nombre)).apply();
+    }
+
+    public void agregarTarjeta(TarjetaCinecoId entityId, Descripcion descripcion, Estado estado){
+        appendChange(new TarjetaAgregadaCliente(entityId, descripcion, estado)).apply();
+
     }
 
 

@@ -12,6 +12,7 @@ import co.com.sofka.cineco.pelicula.values.PeliculaId;
 import co.com.sofka.cineco.pelicula.values.Sinopsis;
 import co.com.sofka.cineco.sala.Asiento;
 import co.com.sofka.cineco.sala.values.AsientoId;
+import co.com.sofka.cineco.sala.values.Descripcion;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -58,9 +59,9 @@ public class Compra extends AggregateEvent<CompraId> {
         return compra;
     }
 
-    public void agregarAsiento(AsientoId entityId){
+    public void agregarAsiento(AsientoId entityId, Descripcion descripcion){
         Objects.requireNonNull(entityId);
-        appendChange(new AsientoAgregado(entityId)).apply();
+        appendChange(new AsientoAgregado(entityId, descripcion)).apply();
     }
 
     public void agregarPelicula(PeliculaId entityId, Nombre nombre, Sinopsis sinopsis){

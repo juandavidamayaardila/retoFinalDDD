@@ -23,7 +23,7 @@ public class CompraChange extends EventChange {
      *
      * @param compra
      */
-    public CompraChange(Compra compra) {
+    public CompraChange(Compra compra)  {
 
         apply((CompraRealizada event) ->{
             compra.fecha = event.getFecha();
@@ -39,7 +39,8 @@ public class CompraChange extends EventChange {
                 throw new IllegalArgumentException("No puede comprar mas asientos para esta pelicula");
             }
             compra.asientos.add(new Asiento(
-             event.getEntityId()
+             event.getEntityId(),
+                    event.getDescripcion()
             ));
         });
 

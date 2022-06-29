@@ -1,25 +1,24 @@
-package co.com.sofka.cineco.compra.events;
+package co.com.sofka.cineco.sala.comandos;
 
 import co.com.sofka.cineco.sala.values.AsientoId;
 import co.com.sofka.cineco.sala.values.Descripcion;
-import co.com.sofka.domain.generic.DomainEvent;
 
-public class AsientoAgregado extends DomainEvent {
+public class CrearAsiento {
 
     private final AsientoId entityId;
     private final Descripcion descripcion;
-    public AsientoAgregado(AsientoId entityId, Descripcion descripcion) {
 
-        super("sofka.cliente.asientoagregado");
+    public CrearAsiento(AsientoId entityId, Descripcion descripcion){
         this.entityId = entityId;
         this.descripcion = descripcion;
-    }
 
-    public AsientoId getEntityId() {
-        return entityId;
     }
 
     public Descripcion getDescripcion() {
         return descripcion;
+    }
+
+    public AsientoId getEntityId() {
+        return entityId;
     }
 }

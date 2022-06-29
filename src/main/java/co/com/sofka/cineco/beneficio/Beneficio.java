@@ -12,8 +12,8 @@ import java.util.Set;
 
 public class Beneficio extends AggregateEvent<BeneficioId> {
 
-    protected Nombre nombre;
-    protected Set<Beneficio> beneficios;
+    protected Descripcion descripcion;
+
     protected Descuento descuento;
 
     public Beneficio(BeneficioId entityId, Descripcion descripcion, Descuento descuento) {
@@ -22,8 +22,21 @@ public class Beneficio extends AggregateEvent<BeneficioId> {
         appendChange(new BeneficioCreado(descripcion,descuento)).apply();
     }
 
+    private Beneficio(BeneficioId entityId){
+        super(entityId);
+        subscribe(new BeneficioChange(this));
+    }
+
     public void actualizarDescuento(BeneficioId beneficioId, Descuento descuento){
         appendChange(new DescuentoActualizdo(beneficioId, descuento));
+    }
+
+    public Descripcion descripcion() {
+        return descripcion;
+    }
+
+    public Descuento descuento() {
+        return descuento;
     }
 
 

@@ -22,6 +22,11 @@ import java.util.Objects;
             appendChange(new PeliculaCreada(nombre, sinopsis)).apply();
         }
 
+        private Pelicula(PeliculaId entityId){
+            super(entityId);
+            subscribe(new PeliculaChange(this));
+        }
+
         public void actualizarSonopsis(Sinopsis sinopsis){
             this.sinopsis = Objects.requireNonNull(sinopsis);
         }

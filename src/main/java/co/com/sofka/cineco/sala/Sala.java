@@ -17,6 +17,11 @@ public class Sala extends AggregateEvent<SalaId> {
         appendChange(new SalaCreada(tipoSala)).apply();
     }
 
+    private Sala(SalaId entityId){
+        super(entityId);
+        subscribe(new SalaChange(this));
+    }
+
     public void actualizarTipoSala(SalaId entityId, TipoSala tipoSala){
         appendChange(new ActualizarTipoSala(entityId, tipoSala )).apply();
     }
